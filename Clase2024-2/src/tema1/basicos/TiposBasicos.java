@@ -25,7 +25,7 @@ public class TiposBasicos {
 		System.out.println( potencia(3) );
 		System.out.println( potencia(3,4) );
 		System.out.println( potencia(3L,4L) );
-		System.out.println( potencia(3,4L) );
+		System.out.println( potencia(3, 4L) );
 		return;
 	}
 
@@ -39,7 +39,7 @@ public class TiposBasicos {
 		// varByte1 = 129;  // NO cabe 129 en un byte
 		short varShort;  // 2 bytes -32768 a 32767
 		int varInt; // 4 bytes 
-		System.out.println( Integer.MIN_VALUE );  // Sacar a consola los valores mínimo y máximo de un int
+		System.out.println( java.lang.Integer.MIN_VALUE );  // Sacar a consola los valores mínimo y máximo de un int
 		System.out.println( Integer.MAX_VALUE );
 		long varLong; // 8 bytes
 		varLong = 12345678901L;  // L sufijo para literal entero LONG (los literales enteros por defecto son int)
@@ -79,13 +79,14 @@ public class TiposBasicos {
 		boolean varLogica2 = (5 < 6) || (4 >= 8);
 		char car = '5';  // char entre comillas simples y solo un car
 		char car2 = 'A' + 1;
+		System.out.println( car2 );
 	}
 
 	// Un poquito de expresiones:
 	public static void expresiones() {
 		// Aritméticas
 		int i = 2 * 5;
-		int j = i * i + 3;  // Precedencias (* antes que +)
+		int j = i + i * 3;  // Precedencias (* antes que +)
 		int k = (i + j) * 3;
 		long largo = 5L + k;  // conversión implícita
 		int noLargo = (int) (largo + 7);  // conversión explícita

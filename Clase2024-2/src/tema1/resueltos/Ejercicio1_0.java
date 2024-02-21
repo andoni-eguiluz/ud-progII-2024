@@ -31,6 +31,7 @@ public class Ejercicio1_0 {
 		}
 		return mcd;
 		// TODO algoritmo mejorable... ¿no?  O:-)
+		// FIXME error grave
 	}
 
 	private static int mcd( int num1, int num2, int num3 ) {
@@ -86,6 +87,11 @@ public class Ejercicio1_0 {
 				break;
 			}
 		}
+//		if (esPrimo) {
+//			return true;
+//		} else {
+//			return false;
+//		}
 		return esPrimo;
 	}
 	
