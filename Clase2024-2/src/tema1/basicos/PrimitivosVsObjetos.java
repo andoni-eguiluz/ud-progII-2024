@@ -5,10 +5,11 @@ import java.awt.Point;
 /** Clase de prueba de objetos - comparativa con tipos primitivos y observación de las diferencias
  * @author andoni.eguiluz at ingenieria.deusto.es
  */
-public class PruebaDeObjetos {
+public class PrimitivosVsObjetos {
 	public static void main(String[] args) {
 		primitivos();
 		objetos();
+		objetosString();
 	}
 
 	// En los primitivos todo se comporta según lo esperado
@@ -33,6 +34,28 @@ public class PruebaDeObjetos {
 	
 	// En los objetos... no tanto
 	private static void objetos() {
+		Point punto1 = new Point(0,5);
+		Point punto2 = punto1;
+		Point punto3 = new Point(0,5);
+		if (punto1==punto2) {
+			System.out.println( "p1 == p2" );
+		}
+		System.out.println( "p1=" + punto1 + " / p3=" + punto3 );
+		System.out.println( "p1 == p3 ? " + (punto1==punto3) );
+		System.out.println( "p1 equals p3 ? " + punto1.equals(punto3) );
+		// if (punto.x == punto2.x && punto.y == punto2.y) {  
+		// Sería la misma pregunta pero en esta definimos la igualdad arbitrariamente desde FUERA de la clase Point
+		// equals define la igualdad DENTRO de la clase Point
+		punto3.x = 5; // Point es mutable, sus atributos están expuestos y se pueden cambiar
+		punto3.y = 7;
+		System.out.println( "p1 = " + punto1 );  // Al modificar p3 no se modifica p1 - son distintos objetos
+		borrar( punto2 );
+		System.out.println( "p2 tras borrar = " + punto2 );  // p2 ha cambiado tras pasarlo a un método
+		System.out.println( "p1 = " + punto1 );  // y p1 también!  (son referencias alias - 2 nombres referencian a un único valor-objeto)
+		// borrar( new Point(p2) ); ¿Cómo podríamos evitar acceso? Podríamos pasar una copia. Así es imposible que el método modifique a p2
+	}
+	
+	private static void objetosString() {
 		// String --> inmutable
 		String string1 = new String( "hola prog2ers" ); // "hola prog2ers";
 		String string2 = string1;
@@ -49,30 +72,7 @@ public class PruebaDeObjetos {
 			System.out.println( "s1 equals s3" );
 		}
 		borrar( string3 );
-		java.lang.System.out.println( "S3 = " + string3 );
-		
-		Point p1 = new Point( 2, 5 );
-		Point p2 = p1;
-		Point p3 = new Point(p1);
-		if (p1==p2) {
-			System.out.println( "p1 == p2" );  // p1 es == a p2 - SON el mismo objeto
-		}
-		if (p1==p3) {
-			System.out.println( "p1 == p3" );  // p1 NO es == a p3 - son DIFERENTES objetos (aunque tengan los mismos valores)
-		}
-		if (p1.equals(p3)) {
-			System.out.println( "p1 equals p3" );  // p1 si es EQUALS a p3 - tienen los mismos valores
-		}
-		// if (punto.x == punto2.x && punto.y == punto2.y) {  
-		// Sería la misma pregunta pero en esta definimos la igualdad arbitrariamente desde FUERA de la clase Point
-		// equals define la igualdad DENTRO de la clase Point
-		p3.x = 5; // Point es mutable, sus atributos están expuestos y se pueden cambiar
-		p3.y = 7;
-		System.out.println( "p1 = " + p1 );  // Al modificar p3 no se modifica p1 - son distintos objetos
-		borrar( p2 );
-		System.out.println( "p2 = " + p2 );  // p2 ha cambiado tras pasarlo a un método
-		System.out.println( "p1 = " + p1 );  // y p1 también!  (son referencias alias - 2 nombres referencian a un único valor-objeto)
-		// borrar( new Point(p2) ); ¿Cómo podríamos evitar acceso? Podríamos pasar una copia. Así es imposible que el método modifique a p2
+		java.lang.System.out.println( "S3 = " + string3 );		
 	}
 	
 	// Se puede borrar un objeto en un método? En este caso no se puede - string es inmutable
