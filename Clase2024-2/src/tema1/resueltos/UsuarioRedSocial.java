@@ -18,6 +18,7 @@ public class UsuarioRedSocial {
 		this.numSeguidores = 0; // Da igual que no ponerlo
 	}
 	
+	// No se podría: sobrecarga no permite misma signatura
 //	public UsuarioRedSocial( String url ) {
 //		
 //	}
