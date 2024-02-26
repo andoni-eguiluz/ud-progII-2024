@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 public class EntradaYSalidaEnVentana {
 
 	public static void main(String[] args) {
+		// Ejemplo de salida de texto multilínea por ventana
+		JOptionPane.showMessageDialog( null, "Hola!\nEsto es un ejemplo de E/S básica\nbasada en ventanas interactivas\nPulsa <Continuar> para seguir" );
 		String input;
 		// Ejemplo de entrada de string por teclado
 		input = JOptionPane.showInputDialog( "Introduce un string cualquiera:" );
