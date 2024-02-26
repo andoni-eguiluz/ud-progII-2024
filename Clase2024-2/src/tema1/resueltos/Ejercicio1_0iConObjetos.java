@@ -7,6 +7,8 @@ public class Ejercicio1_0iConObjetos {
 	//	(de mayor a menor).
 
 	public static void main(String[] args) {
+		
+		System.out.println( UsuarioRedSocial.getNumUsuariosTotales() );
 //		String[] usuarios = { "@sama", "@BillGates", "@JeffBezos", "@elonmusk" };
 //		int[] seguidores = { 2700, 64300, 63000, 173300 };
 		UsuarioRedSocial[] usuariosRS = new UsuarioRedSocial[4];
@@ -29,6 +31,22 @@ public class Ejercicio1_0iConObjetos {
 		visualizarUsuariosYSeguidores( usuariosRS );
 		ordenaUsuariosPorSeguidores( usuariosRS );
 		visualizarUsuariosYSeguidores( usuariosRS );
+		
+		// Prueba
+		UsuarioRedSocial u = new UsuarioRedSocial("Andoni");
+		
+		// Disminuir seguidores de todos los usuarios
+		cambiarSeguidores( usuariosRS, -3500 );
+		visualizarUsuariosYSeguidores( usuariosRS );
+
+		System.out.println( UsuarioRedSocial.getNumUsuariosTotales() );
+		
+	}
+	
+	private static void cambiarSeguidores( UsuarioRedSocial[] usuarios, int cambioSeguidores ) {
+		for (int i=0; i<usuarios.length; i++) {
+			usuarios[i].setNumMilesSeguidores( usuarios[i].getNumMilesSeguidores() + cambioSeguidores );
+		}
 	}
 	
 	// Visualiza línea a línea usuario tabulador nº seguidores
@@ -36,7 +54,7 @@ public class Ejercicio1_0iConObjetos {
 		for (int i=0; i<usuarios.length; i++) {
 			// System.out.println( i );
 			if (usuarios[i] != null) {
-				System.out.println( usuarios[i].nombre + "\t" + usuarios[i].numSeguidores );
+				System.out.println( usuarios[i].toString() );
 			}
 		}
 	}
