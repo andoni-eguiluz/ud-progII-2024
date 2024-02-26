@@ -1,0 +1,58 @@
+package tema1.resueltos.ej1_0iV2;
+
+import java.util.ArrayList;
+
+public class Ejercicio1_0iConObjetos {
+
+	public static void main(String[] args) {
+		ArrayList<UsuarioRedSocial> usuariosRS = new ArrayList<>();
+			// add - remove - get - set - indexOf - contains - size
+		usuariosRS.add( new UsuarioRedSocial( "@sams", 1300 ) );
+		usuariosRS.add( new UsuarioRedSocial( "@JeffBezos", 61000 ) );
+		usuariosRS.add( new UsuarioRedSocial( "@BillGates", 62000 ) );
+		usuariosRS.add( new UsuarioRedSocial( "@elonmusk", 128900 ) );
+		// Pruebas métodos arraylist
+		usuariosRS.add( new UsuarioRedSocial( "temporal" ) );
+		System.out.println( usuariosRS );
+		usuariosRS.remove( usuariosRS.size()-1 );
+		System.out.println( usuariosRS );
+		UsuarioRedSocial usuarioABuscar = new UsuarioRedSocial( "@BillGates" );
+		int dondeEsta = usuariosRS.indexOf( usuarioABuscar );
+		System.out.println( "Contiene " + usuarioABuscar + "? " + 
+				usuariosRS.contains(usuarioABuscar) + " en posición " + dondeEsta );
+		
+		visualizarUsuariosYSeguidores( usuariosRS );
+		ordenaUsuariosPorSeguidores( usuariosRS );
+		visualizarUsuariosYSeguidores( usuariosRS );
+	}
+
+	private static void bajaSeguidores( int numBaja, ArrayList<UsuarioRedSocial> usuarios ) {
+		for (int i=0; i<usuarios.size(); i++) {
+			usuarios.get(i).setNumMilesSeguidores( usuarios.get(i).getNumMilesSeguidores() + numBaja );
+		}
+	}
+	
+	// Visualiza línea a línea usuario tabulador nº seguidores
+	private static void visualizarUsuariosYSeguidores(ArrayList<UsuarioRedSocial> usuarios ) {
+		for (int i=0; i<usuarios.size(); i++) {
+			if (usuarios.get(i) != null) {
+				System.out.println( usuarios.get(i).toString() );	
+			}
+		}
+	}
+	
+	private static void ordenaUsuariosPorSeguidores( ArrayList<UsuarioRedSocial> usuarios ) {
+		for (int pasada=0; pasada<usuarios.size()-1; pasada++) {
+			for (int comp=0; comp<usuarios.size()-1; comp++) {  // TODO mejorar que solo se hagan las comparaciones necesarias
+				// boolean hayQueIntercambiar = usuarios[comp].numSeguidores < usuarios[comp+1].numSeguidores;
+				boolean hayQueIntercambiar = usuarios.get(comp).tieneMenosSeguidoresQue( usuarios.get(comp+1) );
+				if (hayQueIntercambiar) {
+					UsuarioRedSocial auxNombre = usuarios.get(comp);
+					usuarios.set( comp, usuarios.get(comp+1) );
+					usuarios.set( comp+1, auxNombre );
+				}
+			}
+		}
+	}
+	
+}
