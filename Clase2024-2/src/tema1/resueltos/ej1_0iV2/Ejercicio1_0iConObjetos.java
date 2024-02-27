@@ -5,35 +5,41 @@ import java.util.ArrayList;
 public class Ejercicio1_0iConObjetos {
 
 	public static void main(String[] args) {
+		System.out.println( UsuarioRedSocial.getNumUsuarioRS() );
+		// UsuarioRedSocial[] usuariosRS = new UsuarioRedSocial[4];
+		// usuariosRS[0] = new UsuarioRedSocial( "@sams", 1300 );
+		// usuariosRS[1] = new UsuarioRedSocial( "@JeffBezos", 61000 );
+		// usuariosRS[2] = new UsuarioRedSocial( "@BillGates", 62000 );
+		// usuariosRS[3] = new UsuarioRedSocial( "@elonmusk", 128900 );
+		// Rehacer con arraylists:
 		ArrayList<UsuarioRedSocial> usuariosRS = new ArrayList<>();
-			// add - remove - get - set - indexOf - contains - size
 		usuariosRS.add( new UsuarioRedSocial( "@sams", 1300 ) );
 		usuariosRS.add( new UsuarioRedSocial( "@JeffBezos", 61000 ) );
 		usuariosRS.add( new UsuarioRedSocial( "@BillGates", 62000 ) );
 		usuariosRS.add( new UsuarioRedSocial( "@elonmusk", 128900 ) );
-		// Pruebas métodos arraylist
-		usuariosRS.add( new UsuarioRedSocial( "temporal" ) );
-		System.out.println( usuariosRS );
-		usuariosRS.remove( usuariosRS.size()-1 );
-		System.out.println( usuariosRS );
-		UsuarioRedSocial usuarioABuscar = new UsuarioRedSocial( "@BillGates" );
-		int dondeEsta = usuariosRS.indexOf( usuarioABuscar );
-		System.out.println( "Contiene " + usuarioABuscar + "? " + 
-				usuariosRS.contains(usuarioABuscar) + " en posición " + dondeEsta );
-		
 		visualizarUsuariosYSeguidores( usuariosRS );
 		ordenaUsuariosPorSeguidores( usuariosRS );
 		visualizarUsuariosYSeguidores( usuariosRS );
+		System.out.println( UsuarioRedSocial.getNumUsuarioRS() );
+
+		// Añadir usuarios
+		usuariosRS.add( new UsuarioRedSocial( "Andoni" ) );
+		ordenaUsuariosPorSeguidores( usuariosRS );
+		visualizarUsuariosYSeguidores( usuariosRS );
+		// Buscar usuario
+		UsuarioRedSocial usuarioABuscar = new UsuarioRedSocial( "@BillGates", 62000 );
+		System.err.println( "Está bill gates? " + usuariosRS.contains( usuarioABuscar ) );
+		System.out.println( "En qué posición? " + usuariosRS.indexOf( usuarioABuscar ) );
 	}
 
-	private static void bajaSeguidores( int numBaja, ArrayList<UsuarioRedSocial> usuarios ) {
-		for (int i=0; i<usuarios.size(); i++) {
-			usuarios.get(i).setNumMilesSeguidores( usuarios.get(i).getNumMilesSeguidores() + numBaja );
+	private static void bajaSeguidores( int numBaja, UsuarioRedSocial[] usuarios ) {
+		for (int i=0; i<usuarios.length; i++) {
+			usuarios[i].setNumMilesSeguidores( usuarios[i].getNumMilesSeguidores() + numBaja );
 		}
 	}
 	
 	// Visualiza línea a línea usuario tabulador nº seguidores
-	private static void visualizarUsuariosYSeguidores(ArrayList<UsuarioRedSocial> usuarios ) {
+	private static void visualizarUsuariosYSeguidores( ArrayList<UsuarioRedSocial> usuarios ) {
 		for (int i=0; i<usuarios.size(); i++) {
 			if (usuarios.get(i) != null) {
 				System.out.println( usuarios.get(i).toString() );	

@@ -1,8 +1,25 @@
 package tema1.resueltos.ej1_0iV2;
 
 public class UsuarioRedSocial {
+
+    // STATIC
+    private static int numUsuariosRS = 0;
+    public static int getNumUsuarioRS() {
+        return numUsuariosRS;
+    }
+
+    // ----------------------------
+    // NO STATIC
+
     private String nombre = "";
     private int numMilesSeguidores = 0; // da igual = 0 que nada
+    // Más atributos?
+    // private int numSeguidos - pu get - pu set
+    // private String email - pu get - pu set
+    // private String dni - pu get - no set - habría que añadirlo en algún constructor 
+    // ingresosMensuales (suponer 2€*num seguidores)
+    //   pu getIngresosMensuales() sin atributo
+    // numUsuariosRS??
 
     /** Crea un nuevo usuario
      * @param nombre    Nombre de ese usuario
@@ -11,6 +28,7 @@ public class UsuarioRedSocial {
     public UsuarioRedSocial( String nombre, int numMilesSeguidores ) {
         this.nombre = nombre;
         this.setNumMilesSeguidores( numMilesSeguidores );
+        UsuarioRedSocial.numUsuariosRS++;
     }
 
     /** Crea un nuevo usuario de red social con 0 seguidores
@@ -19,6 +37,7 @@ public class UsuarioRedSocial {
     public UsuarioRedSocial( String nombre ) {
         this.nombre = nombre;
         this.setNumMilesSeguidores( 0 );
+        UsuarioRedSocial.numUsuariosRS++;
     }
 
     /** Compara los seguidores de este usuario y otro
@@ -60,11 +79,11 @@ public class UsuarioRedSocial {
         }
     }
 
-    // equals!
+    // equals
     @Override
     public boolean equals(Object obj) {
-    	UsuarioRedSocial u2 = (UsuarioRedSocial) obj; // Nos lo creemos hasta ver herencia
-    	return this.nombre.equals( u2.nombre );
+        UsuarioRedSocial usuario2 = (UsuarioRedSocial) obj; ///!!!!OJO
+        return this.nombre.equals( usuario2.nombre );
     }
-    
+
 }
