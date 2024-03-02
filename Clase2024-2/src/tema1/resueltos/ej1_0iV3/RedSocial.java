@@ -18,6 +18,9 @@ public class RedSocial {
 		this.usuariosRS = new ArrayList<UsuarioRedSocial>();
 	}
 	
+	/** Añade un usuario a la red social al final de la lista
+	 * @param usuario	Usuario nuevo
+	 */
 	public void anyadir( UsuarioRedSocial usuario ) {
 		usuariosRS.add( usuario );
 	}
@@ -55,6 +58,34 @@ public class RedSocial {
 	 */
 	public int buscar( UsuarioRedSocial usuario ) {
 		return usuariosRS.indexOf(usuario);
+	}
+	
+	/** Borra un usuario
+	 * @param usuario	Usuario a borrar. Si no existe (comparando con equals), no se hace nada
+	 */
+	public void borrar( UsuarioRedSocial usuario ) {
+		usuariosRS.remove( usuario );
+	}	
+
+	/** Devuelve el tamaño de la red social
+	 * @return	Número de usuarios actuales
+	 */
+	public int tamanyo() {
+		return usuariosRS.size();
+	}
+	
+	/** Devuelve un usuario
+	 * @param indice	Posición del usuario a recuperar (de 0 a n-1)
+	 * @return	Usuario situado en esa posición
+	 */
+	public UsuarioRedSocial get( int indice ) {
+		return usuariosRS.get( indice );
+	}
+	
+	
+	@Override
+	public String toString() {
+		return usuariosRS.toString();
 	}
 	
 }
