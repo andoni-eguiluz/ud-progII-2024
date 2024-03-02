@@ -1,7 +1,5 @@
 package tema1.resueltos.ej1_0iV3;
 
-import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 public class Ejercicio1_0iConObjetos {
