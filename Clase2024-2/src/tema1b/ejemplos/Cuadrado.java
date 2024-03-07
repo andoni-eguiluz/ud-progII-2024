@@ -2,6 +2,8 @@ package tema1b.ejemplos;
 
 import java.awt.Color;
 
+import utils.ventanas.ventanaBitmap.VentanaGrafica;
+
 public class Cuadrado extends Figura {
 
 	private int lado;
@@ -17,6 +19,15 @@ public class Cuadrado extends Figura {
 
 	public void setLado(int lado) {
 		this.lado = lado;
+	}
+
+    public void dibujar( VentanaGrafica vent ) {
+        vent.dibujaRect( xCentro-lado/2, yCentro-lado/2, lado, lado, grosor, color );
+    }
+	
+	public void mover( int incX, int incY ) {
+		xCentro += incX;
+		yCentro += incY;
 	}
 	
 }
