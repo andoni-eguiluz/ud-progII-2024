@@ -2,7 +2,9 @@ package tema1b.ejemplos;
 
 import java.awt.Color;
 
-public class Figura {
+import utils.ventanas.ventanaBitmap.VentanaGrafica;
+
+public abstract class Figura {
 	protected int xCentro;
 	protected int yCentro;
 	protected int grosor;
@@ -41,4 +43,19 @@ public class Figura {
 		this.color = color;
 	}
 	
+	/** Mueve una figura
+	 * @param incX	Cambio de la cood. x (puede ser negativo)
+	 * @param incY  Cambio de la coor. y (puede ser negativo)
+	 */
+	public void mover( int incX, int incY ) {
+		xCentro += incX;
+		yCentro += incY;
+	}
+	
+	public abstract void dibujar( VentanaGrafica v );
+
+	@Override
+    public String toString() {
+    	return "(" + xCentro + "," + yCentro + ")";
+    }	
 }

@@ -33,11 +33,6 @@ public class Imagen extends Figura {
         vent.dibujaImagen( "logo-chatgpt.png", xCentro, yCentro, anchura, altura, 1, rotacion, 1 );
     }
 
-	public void mover( int incX, int incY ) {
-		xCentro += incX;
-		yCentro += incY;
-	}
-
     /** Cambia la rotación 
      * @param incRotacion   Incremento/decremento de rotación (en radianes)
      */
@@ -45,5 +40,9 @@ public class Imagen extends Figura {
         rotacion += incRotacion;
     }
 
+    @Override
+    public String toString() {
+    	return "Imagen " + super.toString() + " Rot " + rotacion;
+    }
 	
 }

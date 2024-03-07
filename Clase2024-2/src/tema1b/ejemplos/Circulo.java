@@ -77,15 +77,11 @@ public class Circulo extends Figura {
 		v.dibujaCirculo( getxCentro(), getyCentro(), getRadio(), getGrosor(), getColor() );
 	}
 	
-	/** Mueve el círculo
-	 * @param incX	Cambio de la cood. x (puede ser negativo)
-	 * @param incY  Cambio de la coor. y (puede ser negativo)
-	 */
-	public void mover( int incX, int incY ) {
-		xCentro += incX;
-		yCentro += incY;
-	}
-	
+	@Override
+    public String toString() {
+    	// return "Cuadrado (" + xCentro + "," + yCentro + ") Radio = " + radio;
+    	return "Círculo " + super.toString() + " Radio = " + radio;
+    }
 	
 	
 }

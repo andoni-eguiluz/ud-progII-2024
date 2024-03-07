@@ -24,10 +24,10 @@ public class Cuadrado extends Figura {
     public void dibujar( VentanaGrafica vent ) {
         vent.dibujaRect( xCentro-lado/2, yCentro-lado/2, lado, lado, grosor, color );
     }
-	
-	public void mover( int incX, int incY ) {
-		xCentro += incX;
-		yCentro += incY;
-	}
-	
+
+    @Override
+    public String toString() {
+    	return "Cuadrado " + super.toString() + " Lado = " + lado;
+    }
+    
 }
