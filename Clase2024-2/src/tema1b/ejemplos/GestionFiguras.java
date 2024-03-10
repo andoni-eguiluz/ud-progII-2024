@@ -8,7 +8,7 @@ import utils.ventanas.ventanaBitmap.VentanaGrafica;
 public class GestionFiguras {
 	public static void main(String[] args) {
 		VentanaGrafica v = new VentanaGrafica( 800, 600, "Prueba" );
-		v.getJFrame().setLocation( 2000, 50 );
+		// v.getJFrame().setLocation( 2000, 50 );  // Solo si se quiere cambiar la posición de la ventana
 		// v.dibujaCirculo( 100, 100, 50, 2, Color.GREEN );
 		ArrayList<Circulo> listaCirculos = new ArrayList<>();
 		Circulo c = new Circulo ( 200, 200, 75, 2, Color.BLUE );
