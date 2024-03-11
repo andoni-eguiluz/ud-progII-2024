@@ -66,6 +66,13 @@ public class GestionArchivo {
 
 	private static void borrar() {
 		String resp = JOptionPane.showInputDialog( null, "Introduce nombre recurso a borrar:" );
+		int indiceBusq = -1;
+		for (int i=0; i<lista.size(); i++) {
+			if (lista.get(i).getNombre().equals(resp)) {
+				indiceBusq = i;
+				break;
+			}
+		}
 		int posi = lista.indexOf( new Multimedia(resp) );
 		if (posi != -1) {
 			lista.remove( posi );

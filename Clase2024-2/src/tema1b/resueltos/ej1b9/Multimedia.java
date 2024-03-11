@@ -29,7 +29,7 @@ public class Multimedia {
     }
 
 	public void pedir() {
-		nombre = JOptionPane.showInputDialog( "Introduce nombre:", nombre );
+		setNombre( JOptionPane.showInputDialog( "Introduce nombre:", nombre ) );
 	}
 	
 	@Override
@@ -37,6 +37,9 @@ public class Multimedia {
 		if (obj instanceof Multimedia) {
 			Multimedia m = (Multimedia) obj;
 			return m.nombre.equals(nombre);
+		} else if (obj instanceof String) {
+			String string = (String) obj;
+			return string.equals( this.nombre );
 		} else {
 			return false;
 		}
