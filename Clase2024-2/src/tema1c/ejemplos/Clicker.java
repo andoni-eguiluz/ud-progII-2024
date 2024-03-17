@@ -15,7 +15,7 @@ public class Clicker {
 	
 	public static void main(String[] args) {
 		VentanaGrafica v = new VentanaGrafica( 800, 600, "Prueba" );
-		v.getJFrame().setLocation( -1800, 50 );  // Solo si se quiere cambiar la posición de la ventana
+		// v.getJFrame().setLocation( -1800, 50 );  // Solo si se quiere cambiar la posición de la ventana
 
         // Lista polimórfica
         ArrayList<Figura> listaFiguras = new ArrayList<>();
