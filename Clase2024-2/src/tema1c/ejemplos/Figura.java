@@ -5,8 +5,8 @@ import java.awt.Color;
 import utils.ventanas.ventanaBitmap.VentanaGrafica;
 
 public abstract class Figura {
-	protected int xCentro;
-	protected int yCentro;
+	protected double xCentro;
+	protected double yCentro;
 	protected int grosor;
 	protected Color color;
 	
@@ -19,17 +19,25 @@ public abstract class Figura {
 	}
 	
 	public int getxCentro() {
-		return xCentro;
+		return (int) xCentro;
 	}
-	public void setxCentro(int xCentro) {
+	public void setxCentro(double xCentro) {
 		this.xCentro = xCentro;
 	}
 	public int getyCentro() {
-		return yCentro;
+		return (int) yCentro;
 	}
-	public void setyCentro(int yCentro) {
+	public void setyCentro(double yCentro) {
 		this.yCentro = yCentro;
 	}
+	
+	public double getxCentroDouble() {
+		return xCentro;
+	}
+	public double getyCentroDouble() {
+		return (int) yCentro;
+	}
+	
 	public int getGrosor() {
 		return grosor;
 	}

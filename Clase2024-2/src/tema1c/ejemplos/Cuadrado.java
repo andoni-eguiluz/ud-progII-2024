@@ -4,10 +4,11 @@ import java.awt.Color;
 
 import utils.ventanas.ventanaBitmap.VentanaGrafica;
 
-public class Cuadrado extends Figura implements Rotable {
+public class Cuadrado extends Figura implements Rotable, Colorizable {
 
 	private int lado;
 	private double rotacion = 0.0;
+	private int incColor = +5; // Colorizable
 	
 	public Cuadrado(int xCentro, int yCentro, int grosor, Color color, int lado) {
 		super(xCentro, yCentro, grosor, color);
@@ -37,5 +38,15 @@ public class Cuadrado extends Figura implements Rotable {
     public void rotar( double incRotacion ) {
         rotacion += incRotacion;
     }
+
+	// Colorizable
+	public void animaColor() {
+		int nuevoRojo = color.getRed() + incColor;
+		if (nuevoRojo > 255 || nuevoRojo < 0) {
+			incColor = -incColor;
+			nuevoRojo += incColor;
+		}
+		color = new Color( nuevoRojo, color.getGreen(), color.getBlue() );
+	}
     
 }
