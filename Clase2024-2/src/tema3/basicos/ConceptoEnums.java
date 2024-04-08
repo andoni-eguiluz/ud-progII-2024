@@ -26,7 +26,7 @@ public class ConceptoEnums {
 		System.out.println( "Color entero en constante: " + COLOR_VERDE );
 		// De hecho Java todavía lo sigue usando mucho
 		// Por ejemplo: https://docs.oracle.com/javase/8/docs/api/javax/swing/WindowConstants.html#DISPOSE_ON_CLOSE
-        // Ahí puedes ver tres posibilidades (que comentaremos en ventanas) HIDE / DISPOSE / EXIT que son los enteros		
+        // Ahí puedes ver tres posibilidades (cuando trabajemos ventanas) HIDE / DISPOSE / EXIT que son los enteros		
 		
 		// El problema de las constantes es que no hay relación entre el valor y su significado. 
 		// Por ejemplo si escribimos a consola el rojo
@@ -80,7 +80,10 @@ enum MiColor {
 
 // Ejemplo ENUM con atributos/métodos:
 enum Mes { ENE, FEB, MAR, ABR, MAY, JUN, JUL, AGO, SEP, OCT, NOV, DIC;
-	// atributos adicionales (es static pero también puede haber atributos no static)
+		// El punto y coma se pone cuando hay más cosas que solo las constantes de enum
+
+	// atributos adicionales (es static pero también puede haber atributos no static, 
+	// es como cualquier otra clase - SIN CONSTRUCTOR)
 	private static int[] numDias = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	// métodos adicionales
 	public int getNumeroDeDias() {
