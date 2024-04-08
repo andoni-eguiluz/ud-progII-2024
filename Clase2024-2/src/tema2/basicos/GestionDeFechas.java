@@ -34,7 +34,9 @@ public class GestionDeFechas {
 		d2 = new Date( Long.MAX_VALUE );
 		System.out.println( d2 ); // Aquí nada menos (año 292.278.994 DC)  [no hay peligro de otro "efecto 2000"]
 
-		// Y también vale en negativo, contando milisegundos "antes" del 1 de enero de 1970. También llega hasta 
+		// Y también vale en negativo, contando milisegundos "antes" del 1 de enero de 1970. También llega hasta el año 292.269.055 AC
+		d2 = new Date( Long.MIN_VALUE );
+		System.out.println( d2 + " (este antes de Cristo)" );
 		
 		// En cualquier momento se puede sacar los milisegundos de una fecha con getTime():
 		System.out.println( "Milisegundos de ahora: " + d1.getTime() );
