@@ -65,10 +65,11 @@ public class ConceptoEnums {
 enum MiColor {
 	ROJO, VERDE, AZUL, BLANCO
 	// Java internamente hace algo así (no es exactamente eso, pero es la idea: un objeto nuevo con cada valor de enum, asociado al índice entero 0 a n-1):
-	// public static final Color ROJO = new MiColor( 0 );
-	// public static final Color VERDE = new MiColor( 1 );
-	// public static final Color AZUL = new MiColor( 2 );
-	// public static final Color BLANCO = new MiColor( 3 );
+	// public static final MiColor ROJO = new MiColor( 0 );
+	// public static final MiColor VERDE = new MiColor( 1 );
+	// public static final MiColor AZUL = new MiColor( 2 );
+	// public static final MiColor BLANCO = new MiColor( 3 );
+	// values() --> [ ROJO, VERDE, AZUL, BLANCO ]
 }
 // Características de un enum:
 // Solo valen los valores que se indican (se crea un objeto por valor)
