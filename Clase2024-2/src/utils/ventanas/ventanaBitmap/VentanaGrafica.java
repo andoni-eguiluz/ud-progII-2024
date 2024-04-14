@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.*;
 
 /** Clase ventana sencilla para dibujado directo a la ventana
+ * v 1.2.5 - Añadidas funciones de lectura múltiple (pideTextoMultiple, pideCheckBoxMultiple, esperaEntradaMultiple, leeIntMultiple, leeDoubleMultiple, leeCheckBoxMultiple, leeStringMultiple)
+ * v 1.2.4 - Añadido dibujaRect con rotación
  * v 1.2.3 - Añadido dibujado de flecha con ángulo
  * v 1.2.2 - Añadido método getRatonClicado. Mejorado método esperaAClick para devolver coordenada de click de ratón
  * v 1.2.1 - Incorpora posibilidad de cambiar el color de fondo y el soporte para clic derecho y central  (gracias a https://github.com/LNDF)
@@ -41,7 +43,7 @@ public class VentanaGrafica {
 		v.setDibujadoInmediato( false );
 		Object opcion = JOptionPane.showInputDialog( v.getJFrame(), "¿Qué quieres probar?",
 				"Selección de test", JOptionPane.QUESTION_MESSAGE, null, 
-				new String[] { "Movimiento", "Giros", "Tiro", "Texto", "Zoom", "Desplazamiento" }, "Movimiento" );
+				new String[] { "Movimiento", "Giros", "Tiro", "Texto", "Zoom", "Desplazamiento", "Petición texto" }, "Movimiento" );
 		if ( "Movimiento".equals( opcion ) ) {
 			movimiento();
 		} else if ( "Giros".equals( opcion ) ) {
@@ -54,6 +56,8 @@ public class VentanaGrafica {
 			zoom();
 		} else if ( "Desplazamiento".equals( opcion ) ) {
 			desplazamiento();
+		} else if ( "Petición texto".equals( opcion ) ) {
+			peticionTexto();
 		}
 	}
 
@@ -309,8 +313,55 @@ public class VentanaGrafica {
 		v.acaba();
 	}		
 		
-		
-		
+	// Prueba 7: Petición de texto, uno a uno y en bloque con botón
+	private static void peticionTexto() {
+		v.setDibujadoInmediato( true );
+		Font font = new Font( "Arial", Font.PLAIN, 20 );
+		// Petición texto único
+		v.dibujaTexto( 50, 40, "Introduce texto 1", font, Color.BLUE );
+		String entrada = v.leeTexto( 250, 10, 200, 40, "<texto>", font, Color.MAGENTA );
+		v.dibujaTexto( 50, 80, "Texto introducido: " + entrada, font, Color.BLACK );
+		// Petición múltiple
+		v.dibujaTexto( 50, 120, "Texto múltiple 1 (int)", font, Color.GREEN );
+		v.dibujaTexto( 50, 160, "Texto múltiple 2 (double)", font, Color.GREEN );
+		v.dibujaTexto( 50, 200, "Texto múltiple 3 (check)", font, Color.GREEN );
+		v.dibujaTexto( 50, 240, "Texto múltiple 4 (String)", font, Color.GREEN );
+		v.pideTextoMultiple( 300, 90, 200, 40, "<num 1>", font, Color.MAGENTA );
+		v.pideTextoMultiple( 300, 130, 150, 40, "<num 2>", font, Color.MAGENTA );
+		v.pideCheckBoxMultiple( 300, 170, 40, 40, true );
+		v.pideTextoMultiple( 300, 210, 100, 40, "<texto 4>", font, Color.MAGENTA );
+		String boton = v.esperaEntradaMultiple( "Aceptar", "Cancelar" );
+		int entrada1 = v.leeIntMultiple(1);
+		double entrada2 = v.leeDoubleMultiple(2);
+		Boolean entrada3 = v.leeCheckBoxMultiple(3);
+		String entrada4 = v.leeStringMultiple(4);
+		v.dibujaTexto( 50, 280, "Valores introducidos: " + entrada1 + " / " + entrada2 + " / " + entrada3 + " / " + entrada4, font, Color.BLACK );
+		v.dibujaTexto( 50, 320, "Botón pulsado: " + boton, font, Color.BLACK );
+		// Otra petición múltiple
+		v.dibujaTexto( 50, 360, "Y otra petición (int)", font, Color.GREEN );
+		v.dibujaTexto( 50, 400, "Y otra petición (string)", font, Color.GREEN );
+		v.pideTextoMultiple( 300, 330, 200, 40, "<num>", font, Color.MAGENTA );
+		v.pideTextoMultiple( 300, 370, 150, 40, "<texto>", font, Color.MAGENTA );
+		boton = v.esperaEntradaMultiple( "Aceptar", "Cancelar" );
+		entrada1 = v.leeIntMultiple(1);
+		entrada4 = v.leeStringMultiple(2);
+		v.dibujaTexto( 50, 440, "Valores introducidos: " + entrada1 + " / " + entrada4, font, Color.BLACK );
+		v.dibujaTexto( 50, 480, "Botón pulsado: " + boton, font, Color.BLACK );
+		v.dibujaTexto( 50, 520, "Borrando en 3 segundos...", font, Color.RED );
+		v.espera( 3000 );
+		// Y otra tras borrar
+		v.borra();
+		v.dibujaTexto( 50, 160, "Última petición (double)", font, Color.GREEN );
+		v.dibujaTexto( 50, 200, "Y otra petición (string)", font, Color.GREEN );
+		v.pideTextoMultiple( 300, 130, 200, 40, "<num>", font, Color.MAGENTA );
+		v.pideTextoMultiple( 300, 170, 150, 40, "<texto>", font, Color.MAGENTA );
+		boton = v.esperaEntradaMultiple( "Aceptar", "Cancelar", "Ignorar" );
+		entrada1 = v.leeIntMultiple(1);
+		entrada2 = v.leeDoubleMultiple(2);
+		v.dibujaTexto( 50, 240, "Valores introducidos: " + entrada1 + " / " + entrada2, font, Color.BLACK );
+		v.dibujaTexto( 50, 280, "Botón pulsado: " + boton, font, Color.BLACK );
+	}
+	
 		
 	// Parte estática de datos comunes 
 	// Métodos estáticos
@@ -678,6 +729,7 @@ public class VentanaGrafica {
 	public void borra() {
 		graphics.setColor( colorFondo );
 		graphics.fillRect( 0, 0, panel.getWidth()+2, panel.getHeight()+2 );
+		panel.removeAll();  // Por si había componentes de lectura texto previos
 		if (dibujadoInmediato) repaint();
 	}
 
@@ -754,6 +806,34 @@ public class VentanaGrafica {
 			graphics.drawRect( (int)Math.round(calcX(x)), (int)Math.round(calcY(y)), (int)Math.round(anchura*escalaDibujo), (int)Math.round(altura*escalaDibujo) );
 		else
 			graphics.drawRect( (int)Math.round(calcX(x)), (int)Math.round(calcY(y))-(int)Math.round(altura*escalaDibujo), (int)Math.round(anchura*escalaDibujo), (int)Math.round(altura*escalaDibujo) );
+		if (dibujadoInmediato) repaint();
+	}
+
+	/** Dibuja un rectángulo relleno en la ventana
+	 * @param x	Coordenada x del centro del rectángulo
+	 * @param y	Coordenada y del centro del rectángulo
+	 * @param anchura	Anchura del rectángulo (en píxels) 
+	 * @param altura	Altura del rectángulo (en píxels)
+	 * @param grosor	Grueso del rectángulo (en píxels)
+	 * @param color  	Color de la línea del rectángulo
+	 * @param colorRell	Color del relleno del rectángulo
+	 * @param rotacion	Rotación del rectángulo en radianes
+	 */
+	public void dibujaRect( double x, double y, double anchura, double altura, float grosor, Color color, Color colorRell, double rotacion ) {
+		graphics.translate( calcX(x)*escalaDibujo, calcY(y)*escalaDibujo );
+		graphics.rotate( rotacion, 0, 0 );  // Incorporar al gráfico la rotación definida
+		graphics.setColor( colorRell );
+		graphics.setStroke( new BasicStroke( grosor ));
+		if (ejeYInvertido)
+			graphics.fillRect( (int)Math.round(calcX(-anchura/2)), (int)Math.round(calcY(-altura/2)), (int)Math.round(anchura*escalaDibujo), (int)Math.round(altura*escalaDibujo) );
+		else
+			graphics.fillRect( (int)Math.round(calcX(-anchura/2)), (int)Math.round(calcY(-altura/2))-(int)Math.round(altura*escalaDibujo), (int)Math.round(anchura*escalaDibujo), (int)Math.round(altura*escalaDibujo) );
+		graphics.setColor( color );
+		if (ejeYInvertido)
+			graphics.drawRect( (int)Math.round(calcX(-anchura/2)), (int)Math.round(calcY(-altura/2)), (int)Math.round(anchura*escalaDibujo), (int)Math.round(altura*escalaDibujo) );
+		else
+			graphics.drawRect( (int)Math.round(calcX(-anchura/2)), (int)Math.round(calcY(-altura/2))-(int)Math.round(altura*escalaDibujo), (int)Math.round(anchura*escalaDibujo), (int)Math.round(altura*escalaDibujo) );
+		graphics.setTransform( new AffineTransform() );  // Restaurar graphics  (sin rotación ni traslación)
 		if (dibujadoInmediato) repaint();
 	}
 	
@@ -1021,8 +1101,8 @@ public class VentanaGrafica {
 	}
 	
 	/** Dibuja un texto en la ventana
-	 * @param x	Coordenada x de la esquina superior izquierda del rectángulo
-	 * @param y	Coordenada y de la esquina superior izquierda del rectángulo
+	 * @param x	Coordenada x de la esquina inferior izquierda del rectángulo
+	 * @param y	Coordenada y de la esquina inferior izquierda del rectángulo
 	 * @param texto	Texto a dibujar 
 	 * @param font	Tipo de letra con el que dibujar el texto
 	 * @param color	Color del texto
@@ -1349,6 +1429,220 @@ public class VentanaGrafica {
 			try { Thread.sleep( 100 ); } catch (Exception e) {}
 		}
 		return retornoLecturaTexto;
+	}
+
+		// Atributos locales para lectura múltiple de texto
+		private volatile ArrayList<Component> listaEntradas = new ArrayList<>();
+		private volatile ArrayList<String> listaBotones = null;
+		private volatile String botonPulsado = null;
+		private transient JPanel pBotoneraMultiple = null;
+	
+	/** Saca un cuadro de petición de texto en la ventana pero no hace nada hasta que se llame posteriormente al método #esperaEntradaMultiple.
+	 * En ese momento se pedirán todos los textos acumulados con este método y el #pideCheckBoxMultiple.
+	 * Este método puede utilizarse para leer strings, enteros o reales.
+	 * @param x	Coordenada x de la esquina superior izquierda del cuadro
+	 * @param y	Coordenada y de la esquina superior izquierda del cuadro
+	 * @param anchura	Anchura en píxels del cuadro de texto
+	 * @param altura	Altura en píxels del cuadro de texto
+	 * @param texto	Texto inicial en el cuadro
+	 * @param font	Tipo de letra con el que sacar el texto en ese cuadro
+	 * @param color	Color del texto
+	 */
+	public void pideTextoMultiple( double x, double y, int anchura, int altura, String texto, Font font, Color color ) {
+		JTextField tfEntradaMultiple = new JTextField();
+		tfEntradaMultiple.setBounds( (int)calcX(x), (int)calcY(y) - (ejeYInvertido?0:(int)(altura*escalaDibujo)), (int)(anchura*escalaDibujo), (int)(altura*escalaDibujo) );
+		tfEntradaMultiple.setFont( font );
+		tfEntradaMultiple.setForeground( color );
+		tfEntradaMultiple.setText( texto==null ? "" : texto );
+		tfEntradaMultiple.setSelectionStart( 0 );
+		tfEntradaMultiple.setSelectionEnd( tfEntradaMultiple.getText().length() );
+		tfEntradaMultiple.setVisible( true );
+		panel.add( tfEntradaMultiple );
+		if (listaBotones==null) {
+			listaBotones = new ArrayList<>();
+			listaEntradas.clear();
+		}
+		listaEntradas.add( tfEntradaMultiple );
+	}
+
+	/** Saca un cuadro de petición de texto en la ventana pero no hace nada hasta que se llame posteriormente al método #esperaEntradaMultiple.
+	 * En ese momento se pedirán todos los textos acumulados con este método y el #pideTextoMultiple.
+	 * Este método solo puede utilizarse para leer valores booleanos.
+	 * @param x	Coordenada x de la esquina superior izquierda del checkbox
+	 * @param y	Coordenada y de la esquina superior izquierda del checkbox
+	 * @param anchura	Anchura en píxels del checkbox
+	 * @param altura	Altura en píxels del checkbox
+	 * @param valorInicial	Valor inicial del checkbox (false o true)
+	 */
+	public void pideCheckBoxMultiple( double x, double y, int anchura, int altura, boolean valorInicial ) {
+		JCheckBox cbEntradaMultiple = new JCheckBox();
+		cbEntradaMultiple.setBounds( (int)calcX(x), (int)calcY(y) - (ejeYInvertido?0:(int)(altura*escalaDibujo)), (int)(anchura*escalaDibujo), (int)(altura*escalaDibujo) );
+		cbEntradaMultiple.setSelected( valorInicial );
+	    cbEntradaMultiple.setIcon(new CheckboxPersonalizado(anchura, altura));
+		cbEntradaMultiple.setVisible( true );
+		panel.add( cbEntradaMultiple );
+		if (listaBotones==null) {
+			listaBotones = new ArrayList<>();
+			listaEntradas.clear();
+		}
+		listaEntradas.add( cbEntradaMultiple );
+		cbEntradaMultiple.repaint();
+	}
+	
+		class CheckboxPersonalizado implements Icon {
+			int anc = 10;
+			int alt = 10;
+			public CheckboxPersonalizado (int anc, int alt){
+				this.anc = anc;
+				this.alt = alt;
+			}
+			protected int getDimension() {
+				return Math.max( anc, alt );
+			}
+			public void paintIcon(Component component, Graphics g, int x, int y) {
+				ButtonModel buttonModel = ((AbstractButton) component).getModel();
+				if (component.hasFocus() || !component.isEnabled()) {
+					g.setColor(Color.LIGHT_GRAY);
+				} else {
+					g.setColor(Color.WHITE);
+				}
+				((Graphics2D)g).setStroke( new BasicStroke(2f) );
+				g.fillRect( 0, 0, anc, alt );
+				g.setColor(Color.BLACK);
+				g.drawRect( 0, 0, anc, alt );
+				if (buttonModel.isSelected()) {
+					g.setColor(Color.GRAY);
+					((Graphics2D)g).setStroke( new BasicStroke(3f) );
+					g.drawLine( 3, 3, anc-3, alt-3 );
+					g.drawLine( 3, alt-3, anc-3, 3 );
+				}
+			}
+	
+			public int getIconWidth() {
+				return getDimension();
+			}
+	
+			public int getIconHeight() {
+				return getDimension();
+			}
+		}	
+	
+	/** Saca botones en la ventana y permite que el usuario pulse alguno de ellos, introduciendo datos previamente en todas las entradas de texto o checkboxes
+	 * generados con #pideTextoMultiple o #pideCheckBoxMultiple.
+	 * Retorna después de pulsado alguno de los botones
+	 * @param boton1	Primer botón a indicar para que el usuario acabe la lectura.
+	 * @param botones	Serie de botones opcionales adicionales, también acaban la lectura.
+	 * @return	Texto del botón pulsado por el usuario para acabar la lectura, null si no había textos de entrada
+	 */
+	public String esperaEntradaMultiple( String boton1, String... botones ) {
+		botonPulsado = null;
+		finLecturaTexto = false;
+		if (listaBotones==null || listaEntradas.size()==0) {
+			return null;
+		}
+		listaEntradas.get(0).requestFocus();
+		listaBotones.clear();
+		JButton b = new JButton( boton1 );
+		b.addActionListener( new EventoBoton( boton1 ) );
+		if (pBotoneraMultiple==null) {
+			pBotoneraMultiple = new JPanel();
+			pBotoneraMultiple.add( b );
+			ventana.getContentPane().add( pBotoneraMultiple, BorderLayout.SOUTH );
+		} else {
+			pBotoneraMultiple.removeAll();
+			pBotoneraMultiple.add( b );
+		}
+		for (String otroBoton : botones) {
+			JButton b2 = new JButton( otroBoton );
+			b2.addActionListener( new EventoBoton( otroBoton ) );
+			pBotoneraMultiple.add( b2 );
+		}
+		pBotoneraMultiple.revalidate();
+		pBotoneraMultiple.repaint();
+		while (!finLecturaTexto) {
+			try { Thread.sleep( 100 ); } catch (Exception e) {}
+		}
+		ventana.getContentPane().remove( pBotoneraMultiple );
+		ventana.revalidate();
+		pBotoneraMultiple = null;
+		listaBotones = null;
+		for (Component c : listaEntradas) {
+			c.setEnabled( false );
+			// panel.remove( c );
+		}
+		panel.revalidate();
+		return botonPulsado;
+	}
+		private class EventoBoton implements ActionListener {
+			private String nombre;
+			public EventoBoton( String nombre ) {
+				this.nombre = nombre;
+			}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonPulsado = nombre;
+				finLecturaTexto = true;
+			}
+		}
+
+	/** Devuelve el entero leído en una entrada múltiple. Puede llamarse a este método después de ejecutar {@link #esperaEntradaMultiple(String, String...)}
+	 * @param numTextoEntrada	Número secuencial de texto de entrada que quiere leerse (1 para el primero, 2 para el siguiente, etc.)
+	 * @return	Entero leído en el texto de entrada indicado. #Integer.MAX_INT si es un entero erróneo o el número indicado es incorrecto
+	 */
+	public int leeIntMultiple( int numTextoEntrada ) {
+		if (numTextoEntrada<1 || numTextoEntrada>listaEntradas.size()) {
+			return Integer.MAX_VALUE;
+		}
+		try {
+			return Integer.parseInt( ((JTextField) listaEntradas.get(numTextoEntrada-1)).getText() );
+		} catch (Exception e) {
+			return Integer.MAX_VALUE;
+		}
+	}
+	
+	/** Devuelve el entero leído en una entrada múltiple. Puede llamarse a este método después de ejecutar {@link #esperaEntradaMultiple(String, String...)}
+	 * @param numTextoEntrada	Número secuencial de texto de entrada que quiere leerse (1 para el primero, 2 para el siguiente, etc.)
+	 * @return	Valor real leído en el texto de entrada indicado. #Double.NaN si es un real erróneo o el número indicado es incorrecto
+	 */
+	public double leeDoubleMultiple( int numTextoEntrada ) {
+		if (numTextoEntrada<1 || numTextoEntrada>listaEntradas.size()) {
+			return Double.NaN;
+		}
+		try {
+			return Double.parseDouble( ((JTextField) listaEntradas.get(numTextoEntrada-1)).getText() );
+		} catch (Exception e) {
+			return Double.NaN;
+		}
+	}
+	
+	/** Devuelve el entero leído en una entrada múltiple. Puede llamarse a este método después de ejecutar {@link #esperaEntradaMultiple(String, String...)}
+	 * @param numEntrada	Número secuencial de entrada que quiere leerse (1 para el primero, 2 para el siguiente, etc.). Debe corresponder a una entrada checkbox
+	 * @return	Valor lógico leído en el campo de entrada indicado. null si el número indicado es incorrecto
+	 */
+	public Boolean leeCheckBoxMultiple( int numEntrada ) {
+		if (numEntrada<1 || numEntrada>listaEntradas.size()) {
+			return null;
+		}
+		try {
+			return ((JCheckBox) listaEntradas.get(numEntrada-1)).isSelected();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/** Devuelve el entero leído en una entrada múltiple. Puede llamarse a este método después de ejecutar {@link #esperaEntradaMultiple(String, String...)}
+	 * @param numTextoEntrada	Número secuencial de texto de entrada que quiere leerse (1 para el primero, 2 para el siguiente, etc.)
+	 * @return	String leído en el texto de entrada indicado. null si el número indicado es incorrecto
+	 */
+	public String leeStringMultiple( int numTextoEntrada ) {
+		if (numTextoEntrada<1 || numTextoEntrada>listaEntradas.size()) {
+			return null;
+		}
+		try {
+			return ((JTextField) listaEntradas.get(numTextoEntrada-1)).getText();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	/** Muestra un cuadro de diálogo encima de la ventana y espera a que el usuario lo pulse
