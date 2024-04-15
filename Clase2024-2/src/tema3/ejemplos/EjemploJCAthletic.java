@@ -1,7 +1,6 @@
 package tema3.ejemplos;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 public class EjemploJCAthletic {
 
@@ -44,6 +43,48 @@ public class EjemploJCAthletic {
 	private static void pruebaJCStrings() {
 		goleadores = cargaGoleadores();
 		System.out.println( goleadores );
+		
+		// Linkedlist
+		LinkedList<String> lista2 = new LinkedList<>();
+		for (String jugador : goleadores) {
+			lista2.add( jugador );
+		}
+		if (lista2.contains( "Sancet" )) {
+			System.out.println( "Sancet está en la lista" );
+		}
+		System.out.println( lista2 );
+
+		// Sets
+		HashSet<String> conjuntoHash = new HashSet<String>();
+		for (String jugador : goleadores) {
+			conjuntoHash.add( jugador );
+		}
+		System.out.println( conjuntoHash );
+		for (String j : conjuntoHash) {
+			System.out.println( "  " + j );
+		}
+		if (conjuntoHash.contains( "Sancet" )) {
+			System.out.println( "Sancet está en el conjunto" );
+		}
+		
+		TreeSet<String> conjuntoTree = new TreeSet<>();
+		for (String jugador : goleadores) {
+			conjuntoTree.add( jugador );
+			System.out.println( "  " + conjuntoTree );
+		}
+		System.out.println( conjuntoTree );
+		if (conjuntoTree.contains( "Sancet" )) {
+			System.out.println( "Sancet está en el conjunto" );
+		}
+		
+		// Y cómo es un hash por dentro?
+		HashSet<Jugador> conjJugs = new HashSet<>();
+		for (String jugador : goleadores) {
+			conjJugs.add( new Jugador(jugador) );
+			System.out.println( " * " + conjJugs );
+		}
+		System.out.println( conjJugs );
+		
 	}
 	
 }
