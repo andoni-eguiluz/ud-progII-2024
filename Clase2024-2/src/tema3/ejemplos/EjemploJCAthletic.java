@@ -34,6 +34,14 @@ public class EjemploJCAthletic {
 		return ret;
 	}
 
+	private static ArrayList<String> cargaPartidos() {
+		ArrayList<String> ret = new ArrayList<>();
+		for (int i=0; i<GOLES_COPA.length; i++) {
+			ret.add( (String) GOLES_COPA[i][2] );
+		}
+		return ret;
+	}
+
 	private static ArrayList<String> goleadores;
 	
 	public static void main(String[] args) {
@@ -85,6 +93,71 @@ public class EjemploJCAthletic {
 		}
 		System.out.println( conjJugs );
 		
+		// Y cómo es un Tree por dentro?
+		TreeSet<Jugador> conjTreeJugs = new TreeSet<>();
+		for (String jugador : goleadores) {
+			conjTreeJugs.add( new Jugador(jugador) );
+			System.out.println( " t " + conjTreeJugs );
+		}
+		
+		// Qué podríamos querer hacer con un mapa teniendo goleadores?
+		HashMap<String,Integer> mapaConteoGoles = new HashMap<>();  // 1.- Inicializar el mapa
+		// 2.- Tratamiento o carga del mapa
+		for (String jugador : goleadores) {
+			if (!mapaConteoGoles.containsKey(jugador)) {
+				mapaConteoGoles.put( jugador, 1 ); // new Integer(1) ); --> recordemos que el Integer es inmutable
+			} else {
+				// mapaConteoGoles.get(jugador)++  No se puede porque integer es inmutable
+				int golesHastaAhora = mapaConteoGoles.get( jugador );
+				golesHastaAhora++;
+				mapaConteoGoles.replace( jugador, golesHastaAhora );  // put funciona igual que replace si la clave existe
+			}
+			System.out.println( mapaConteoGoles );
+		}
+		System.out.println( mapaConteoGoles );
+		// Reprogramado con enteros mutables
+		TreeMap<String,EnteroMutable> mapaConteoGoles2 = new TreeMap<>();  // 1.- Inicializar el mapa
+		// 2.- Carga con if (existe / no existe la clave)
+		for (String jugador : goleadores) {
+			if (!mapaConteoGoles2.containsKey(jugador)) {
+				mapaConteoGoles2.put( jugador, new EnteroMutable(1) ); // este sí es mutable
+			} else {
+				// mapaConteoGoles2.get(jugador).inc1();
+				// De otra manera
+				EnteroMutable em = mapaConteoGoles2.get(jugador);
+				em.inc1();
+			}
+			System.out.println( mapaConteoGoles );
+		}
+		System.out.println( mapaConteoGoles );
+		// 3.- Búsquedas -> get
+		// 4.- Recorridos -> keySet() las claves / values() los valores
+		for (String clave : mapaConteoGoles2.keySet()) {
+			System.out.println( "Jugador " + clave + " - goles " + mapaConteoGoles2.get(clave) );
+		}
+		
+		// Lista de partidos en los que se ha metido gol?
+		HashMap<String,ArrayList<String>> mapaPartidos = new HashMap<>();
+		ArrayList<String> partidos = cargaPartidos();
+		for (int i=0; i<goleadores.size(); i++) {
+			String jugador = goleadores.get(i);
+			String partido = partidos.get(i);
+//			if (!mapaPartidos.containsKey(jugador)) {
+//				mapaPartidos.put( jugador, new ArrayList<>() );
+//				mapaPartidos.get( jugador ).add( partido );
+//			} else {
+//				mapaPartidos.get( jugador ).add( partido );
+//			}
+			if (!mapaPartidos.containsKey(jugador)) {
+				mapaPartidos.put( jugador, new ArrayList<>() );
+			}
+			mapaPartidos.get( jugador ).add( partido );
+		}
+		System.out.println( mapaPartidos );
+		for (String jugador : mapaPartidos.keySet()) {
+			System.out.println( jugador + " - partidos " + mapaPartidos.get(jugador) );
+		}
 	}
+	
 	
 }
