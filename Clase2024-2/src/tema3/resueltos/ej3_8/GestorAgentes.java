@@ -23,6 +23,7 @@ public class GestorAgentes {
 	 */
 	public void anyadirAgente( String datosAgente ) {
 		StringTokenizer st = new StringTokenizer( datosAgente, "#" );
+		// TODO completar
 		st.nextToken(); // pp
 		st.nextToken(); // loc
 		st.nextToken(); // nombre age
