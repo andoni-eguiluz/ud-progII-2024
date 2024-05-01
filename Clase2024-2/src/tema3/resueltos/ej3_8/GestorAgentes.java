@@ -106,8 +106,15 @@ public class GestorAgentes {
                     System.out.print( "\t" );
                 }
                 System.out.print( ciudad + ": " );
+                int numAgente = 0;
                 for (Agente agente : mapaAgentes.get(prov).get(ciudad)) {
-                    System.out.println( agente );
+                	numAgente++;
+                    System.out.print( agente );
+                    if (numAgente < mapaAgentes.get(prov).get(ciudad).size()) {
+                        System.out.print( ", " );
+                    } else {
+                    	System.out.println();
+                    }
                 }
             }
         }
