@@ -1,11 +1,11 @@
-package tema4.ejemplos;
+package tema4.resueltos;
 
 import java.io.Serializable;
 
 /** Clase para objetos de película, ejemplo para practicar gestión de ficheros con ella
  * @author andoni.eguiluz at ingenieria.deusto.es
  */
-public class Peli implements Comparable<Peli> {
+public class Peli implements Comparable<Peli>, Serializable {
 	private String nombre;
 	private int anyo;
 
