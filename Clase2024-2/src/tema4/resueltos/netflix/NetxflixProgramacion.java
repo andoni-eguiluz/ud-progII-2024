@@ -102,7 +102,7 @@ public class NetxflixProgramacion {
 		LinkedList<Programa> pila = new LinkedList<>();
 		for (Programa pr : listaProgramas) {
 			if(pr.getAnno() == anno) {
-				pila.addFirst(pr);
+				pila.addFirst(pr);  // push
 			}
 		}
 		return pila;

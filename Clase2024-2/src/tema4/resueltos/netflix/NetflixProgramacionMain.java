@@ -27,6 +27,10 @@ public class NetflixProgramacionMain {
 			ArrayList<Programa> val = entry.getValue();
 			System.out.println(key + ": " + val );
 		}
+		// O lo que es lo mismo
+		// for (String pais : mapaClasificacion.keySet()) {
+		// 	System.out.println( pais + ": " + mapaClasificacion.get(pais) );
+		// }
 		
 		System.out.println("------------------------------------");
 		
