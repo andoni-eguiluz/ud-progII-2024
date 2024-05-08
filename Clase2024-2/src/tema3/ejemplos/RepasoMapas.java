@@ -1,5 +1,7 @@
 package tema3.ejemplos;
 
+import java.util.*;
+
 public class RepasoMapas {
 	
     public static void main(String[] args) {
@@ -28,8 +30,7 @@ public class RepasoMapas {
         // Los mapas se suelen esconder en los objetos. Por ejemplo país-ciudad
         // HashMap<String,HashMap<String,Ciudad>>
         // HashMap<String,Pais>  ... Pais --> HashMap<String,Ciudad>
-
-        
+    	
     }
 
 }
