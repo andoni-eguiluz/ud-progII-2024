@@ -52,6 +52,21 @@ public class Mueble implements Serializable {
 	public String toString() {
 		return nombre + " (" + codigo + ") cat=" + categoria + ", " + precio;
 	}
+
+	@Override
+	public int hashCode() {
+		return codigo;
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Mueble) {
+			Mueble m = (Mueble) obj;
+			return m.codigo == codigo;
+		} else {
+			return false;
+			
+		}
+	}
 	
 }

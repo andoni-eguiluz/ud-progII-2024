@@ -1,5 +1,6 @@
 package tema4.resueltos.deustoikea;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 public class DeustoIkea {
@@ -143,6 +145,8 @@ public class DeustoIkea {
 			for (int i = 0; i < 5000; i++) {
 				// Elegir un mueble aletorio
 				int alea = (int) (Math.random() * muebles.size());
+//				Random random = new Random();
+//				alea = random.nextInt( muebles.size() )
 				Mueble mueble = muebles.get(alea);
 				
 				// Añadir el mueble elegido al almacen
@@ -185,14 +189,17 @@ public class DeustoIkea {
 		
 		for (Mueble mueble : muebles) {
 			String cat = mueble.getCategoria();
-			if (mapa.containsKey(cat)) {
-				// añado este mueble a la lista de esta categoria
-				mapa.get(cat).add(mueble);
-			} else {
+			if (!mapa.containsKey(cat)) {
 				// introduzco esa categoria en el mapa
 				mapa.put(cat, new ArrayList<Mueble>());
 				// añado este mueble a la lista de esta categoria
 				mapa.get(cat).add(mueble);
+			} else {
+				// añado este mueble a la lista de esta categoria
+//				mapa.get(cat).add(mueble);
+				// O esto que es lo mismo
+				ArrayList<Mueble> l = mapa.get(cat);
+				l.add(mueble);
 			}
 		}
 		
@@ -210,7 +217,7 @@ public class DeustoIkea {
 				mapa.put(cat, valor);
 			} else {
 				// introduzco esa categoria en el mapa
-				mapa.put(cat, 1);
+				mapa.put(cat, 1);  // replace
 			}
 		}
 		
@@ -228,27 +235,34 @@ public class DeustoIkea {
 	}
 
 	private static void cargarMueblesCSV(ArrayList<Mueble> muebles) {
+		/// muebles = new ArrayList<Mueble>();   NOOOOOOOOOOOOOOOOOOOOOOOOOO
+		muebles.clear();
 		File f = new File("ikea-muebles.csv");
 		try {
 			Scanner sc = new Scanner(f, "UTF-8");  // Ojo al UTF-8
 			while (sc.hasNextLine()) {
 				String linea = sc.nextLine();
-				String[] campos = linea.split(",");
-				int codigo = Integer.parseInt(campos[0]);
-				String nombre = campos[1];
-				String cat = campos[2];
-				double precio = Double.parseDouble(campos[3]);
-				boolean online = Boolean.parseBoolean(campos[4]);
-				String url = campos[5];
-				Mueble nuevo;
-				if (online) {
-					nuevo = new MuebleOnline(codigo, nombre, cat, precio, url);
-				} else {
-					nuevo = new Mueble(codigo, nombre, cat, precio);
+				try {
+					String[] campos = linea.split(",");  // StringTokenizer
+					int codigo = Integer.parseInt(campos[0]);
+					String nombre = campos[1];
+					String cat = campos[2];
+					double precio = Double.parseDouble(campos[3]);
+					boolean online = Boolean.parseBoolean(campos[4]);
+					String url = campos[5];
+					Mueble nuevo;
+					if (online) {
+						nuevo = new MuebleOnline(codigo, nombre, cat, precio, url);
+					} else {
+						nuevo = new Mueble(codigo, nombre, cat, precio);
+					}
+					muebles.add(nuevo);
+				} catch (Exception e) {
+					System.out.println( "Error línea de texto de mueble: " + linea);
 				}
-				muebles.add(nuevo);
 			}
 			sc.close();
+		// } catch (NumberFormatException e) {  // Este error deja de leer el fichero
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
