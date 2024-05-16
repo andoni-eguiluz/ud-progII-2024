@@ -3,6 +3,9 @@ package tema5.ejemplos;
 import org.junit.runner.*;
 import org.junit.runner.notification.Failure;
 
+/** Ejemplo de cómo se puede lanzar JUnit desde un main normal (en lugar de que lo haga el IDE)
+ * @author andoni.eguiluz at ingenieria.deusto.es
+ */
 public class LanzandoJUnitAMano {
 	public static void main(String[] args) {
 		Result result = JUnitCore.runClasses(

@@ -16,6 +16,9 @@ public class Fraccion implements Comparable<Fraccion> {
 		super();
 		this.num = num;
 		this.den = den;
+		if (den==0) {
+			throw new ArithmeticException( "Denominador 0" );
+		}
 	}
 
 	public double calcular() {
@@ -103,11 +106,17 @@ public class Fraccion implements Comparable<Fraccion> {
 		return den+num;
 	}
 
+	/** Compara dos fracciones
+	 * Devuelve true si son iguales o equivalentes
+	 * (las simplificadas son iguales a las no simplificadas)
+s	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Fraccion) {
 			Fraccion f2 = (Fraccion) obj;
-			return num==f2.num && den==f2.den;
+			Fraccion f1s = this.simplifica();
+			Fraccion f2s = f2.simplifica();
+			return f1s.num==f2s.num && f1s.den==f2s.den;
 		} else {
 			return false;
 		}
